@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLOutput;
+
 @RestController
 @RequestMapping("/member")
 @CrossOrigin
@@ -28,7 +30,7 @@ public class MemberController {
         }
     }
 
-    @GetMapping
+    @GetMapping(params = {"name","password"})
     public Member login(
             @RequestParam String name,
             @RequestParam String password) {
@@ -48,4 +50,22 @@ public class MemberController {
         }
     }
 
+    @PutMapping("/{id}")
+    public Member modifyMember(@PathVariable Long id, @RequestBody Member member) {
+        try {
+            return memberService.modifyMember(id, member);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public  void removeMember(@PathVariable Long id) {
+        try {
+            memberService.removeMember(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+    }
 }

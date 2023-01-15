@@ -2,7 +2,6 @@ package net.yorksolutions.yemiakinwalepantrybe.services;
 
 import net.yorksolutions.yemiakinwalepantrybe.models.Item;
 import net.yorksolutions.yemiakinwalepantrybe.models.Recipe;
-import net.yorksolutions.yemiakinwalepantrybe.repositories.ItemListRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.ItemRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.MemberRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.RecipeRepository;
@@ -17,15 +16,13 @@ public class RecipeService {
 
     private final ItemRepository itemRepository;
 
-    private final ItemListRepository itemListRepository;
 
     private final RecipeRepository recipeRepository;
 
     public RecipeService(MemberRepository memberRepository, ItemRepository itemRepository,
-                       ItemListRepository itemListRepository, RecipeRepository recipeRepository) {
+                        RecipeRepository recipeRepository) {
         this.memberRepository = memberRepository;
         this.itemRepository = itemRepository;
-        this.itemListRepository = itemListRepository;
         this.recipeRepository = recipeRepository;
     }
 
@@ -33,18 +30,12 @@ public class RecipeService {
         return recipeRepository.findAll();}
 
     public Recipe newRecipe(Recipe recipe) throws Exception {
-        if (recipeRepository.findRecipeByName(recipe.recipeName).isPresent())
+        if (recipeRepository.findByRecipeName(recipe.recipeName).isPresent())
             throw new Exception();
 
         return recipeRepository.save(recipe);
     }
 
-//    public Item updateRecipe(Recipe recipe) throws Exception {
-//        if (recipeRepository.findRecipeByName(recipe.recipeName).isEmpty())
-//            throw new Exception();
-//
-//        return null;
-//    }
 
     public void deleteRecipe(Long id) throws Exception {
         Optional <Recipe> recipeToDelete = this.recipeRepository.findById(id);
@@ -54,5 +45,20 @@ public class RecipeService {
 
         recipeRepository.deleteById(id);
         }
+
+
+    public Recipe modifyRecipe(Long id, Recipe recipe) throws Exception {
+        if (recipeRepository.findByRecipeName(recipe.recipeName).isEmpty())
+            throw new Exception();
+
+        final var modifiedRecipe = recipeRepository.findByRecipeName(recipe.recipeName).orElseThrow();
+        modifiedRecipe.recipeName = recipe.recipeName;
+        modifiedRecipe.recipeImg = recipe.recipeImg;
+        modifiedRecipe.recipeItems = recipe.recipeItems;
+        modifiedRecipe.recipePrep = recipe.recipePrep;
+
+        return recipeRepository.save(modifiedRecipe);
+
+    }
 
 }

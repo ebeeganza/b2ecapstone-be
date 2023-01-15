@@ -10,6 +10,6 @@ public class Item {
     @Column(unique = true)
     public String itemName;
 
-    public String itemUnit;
+    public int itemUnit;
     public String itemImg;
 }

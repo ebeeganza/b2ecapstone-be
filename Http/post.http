@@ -1,0 +1,12 @@
+POST http://localhost:8080/recipe
+Content-Type: application/json
+
+{
+  "recipeName": "Eba",
+  "recipeImg": "Look",
+  "recipeItems": "water",
+  "recipePrep": "hot water"
+
+}
+
+###

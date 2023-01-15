@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
 
-  Optional<Item> findItemByName(String itemName);
+  Optional<Item> findItemByItemName(String itemName);
+
 }

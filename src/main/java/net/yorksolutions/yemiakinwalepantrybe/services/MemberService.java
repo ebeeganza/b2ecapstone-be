@@ -2,11 +2,14 @@ package net.yorksolutions.yemiakinwalepantrybe.services;
 
 
 import net.yorksolutions.yemiakinwalepantrybe.models.Member;
-import net.yorksolutions.yemiakinwalepantrybe.repositories.ItemListRepository;
+
 import net.yorksolutions.yemiakinwalepantrybe.repositories.ItemRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.MemberRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -15,20 +18,19 @@ public class MemberService {
 
     private final ItemRepository itemRepository;
 
-    private final ItemListRepository itemListRepository;
+
 
     private final RecipeRepository recipeRepository;
 
     public MemberService(MemberRepository memberRepository, ItemRepository itemRepository,
-                         ItemListRepository itemListRepository, RecipeRepository recipeRepository) {
+                          RecipeRepository recipeRepository) {
         this.memberRepository = memberRepository;
         this.itemRepository = itemRepository;
-        this.itemListRepository = itemListRepository;
         this.recipeRepository = recipeRepository;
     }
 
     public void register(Member member) throws Exception {
-        if (member.password != member.passwordRepeat) {
+        if (!member.password.equals(member.passwordRepeat)) {
             throw new Exception();
         }
 
@@ -36,11 +38,30 @@ public class MemberService {
     }
 
     public Member login(String name, String password) {
-        return memberRepository.findMemberByNameAndPassword(name, password).orElseThrow();
+        return memberRepository.findMemberByNameAndPassword(name, password).orElse(null);
     }
 
     public Iterable<Member> getAllMembers() {
         return memberRepository.findAll();
+    }
+
+    public Member modifyMember(Long id, Member member) throws Exception {
+//        if (memberRepository.findById(id).isEmpty())
+//            throw new Exception();
+        final var modifiedMember = memberRepository.findById(id).orElseThrow();
+        modifiedMember.name = member.name;
+        modifiedMember.password = member.password;
+        modifiedMember.passwordRepeat = member.passwordRepeat;
+
+        return memberRepository.save(modifiedMember);
+    }
+
+    public void removeMember(Long id) throws Exception {
+        Optional<Member> memberToRemove = this.memberRepository.findById(id);
+        if (memberToRemove.isEmpty()) {
+            throw new Exception();
+        }
+        memberRepository.deleteById(id);
     }
 
 }

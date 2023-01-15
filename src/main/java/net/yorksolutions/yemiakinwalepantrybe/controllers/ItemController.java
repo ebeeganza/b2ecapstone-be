@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 @CrossOrigin
 public class ItemController {
 
-    private ItemService itemService;
+    private final ItemService itemService;
 
     @Autowired
     public ItemController(ItemService itemService) {
@@ -37,10 +37,10 @@ public class ItemController {
         }
     }
 
-    @PutMapping
-    public Item updateItem(@RequestBody Item item) {
+    @PutMapping("/{id}")
+    public Item updateItem(@PathVariable Long id, @RequestBody Item item) {
         try {
-           return itemService.updateItem(item);
+           return itemService.updateItem(id, item);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }

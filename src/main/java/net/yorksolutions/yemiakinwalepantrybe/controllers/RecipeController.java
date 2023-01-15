@@ -35,22 +35,21 @@ public class RecipeController {
         }
     }
 
-
-//    @PutMapping
-//    public void updateRecipe(@RequestBody Recipe recipe) {
-//        try {
-//            recipeService.updateRecipe(recipe);
-//        } catch (Exception e) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
     @DeleteMapping("/{id}")
     public void deleteRecipe(@PathVariable Long id) {
         try {
             recipeService.deleteRecipe(id);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public Recipe modifyRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {
+        try {
+            return recipeService.modifyRecipe(id, recipe);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
         }
     }
 }

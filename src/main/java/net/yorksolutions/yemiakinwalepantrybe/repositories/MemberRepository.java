@@ -12,4 +12,6 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
 
    public Optional<Member> findMemberByNameAndPassword(String name, String password);
 
+   
+
 }

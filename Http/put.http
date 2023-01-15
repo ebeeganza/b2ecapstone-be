@@ -1,0 +1,9 @@
+PUT http://localhost:8080/recipe/8
+Content-Type: application/json
+
+{
+  "recipeName": "Eba",
+  "recipeImg": "Look",
+  "recipeItems": "Garri",
+  "recipePrep": "hot water"
+}
