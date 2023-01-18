@@ -1,6 +1,7 @@
 package net.yorksolutions.yemiakinwalepantrybe.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -12,4 +13,10 @@ public class Member {
 
     public String password;
     public String passwordRepeat;
+
+    @OneToMany
+    public List <Recipe> Recipes;
+
+    @OneToMany
+    public List <Item> items;
 }

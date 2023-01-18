@@ -1,6 +1,7 @@
 package net.yorksolutions.yemiakinwalepantrybe.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -12,4 +13,7 @@ public class Item {
 
     public int itemUnit;
     public String itemImg;
+
+    @ManyToOne
+    public Recipe recipe;
 }

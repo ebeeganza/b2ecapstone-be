@@ -1,9 +1,9 @@
-PUT http://localhost:8080/recipe/8
+PUT http://localhost:8080/member/27
 Content-Type: application/json
 
 {
-  "recipeName": "Eba",
-  "recipeImg": "Look",
-  "recipeItems": "Garri",
-  "recipePrep": "hot water"
+  "name": "t",
+  "password": "Lo",
+  "passwordRepeat": "Lo"
+
 }

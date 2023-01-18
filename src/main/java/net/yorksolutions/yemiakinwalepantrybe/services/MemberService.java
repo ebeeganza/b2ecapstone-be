@@ -40,13 +40,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-//    public Member getByNameAndPassword(String name, String password) {
-//        return MemberRepository
-//                .findMemberByNameAndPassword(name, password)
-//                .orElse();
-//    }
-
-    public Member getByNameAndPassword(String name, String password) {
+    public Member login(String name, String password) {
         return memberRepository.findMemberByNameAndPassword(name, password).orElse(null);
     }
 
@@ -55,8 +49,8 @@ public class MemberService {
     }
 
     public Member modifyMember(Long id, Member member) throws Exception {
-//        if (memberRepository.findById(id).isEmpty())
-//            throw new Exception();
+        if (memberRepository.findById(id).isEmpty())
+            throw new Exception();
         final var modifiedMember = memberRepository.findById(id).orElseThrow();
         modifiedMember.name = member.name;
         modifiedMember.password = member.password;

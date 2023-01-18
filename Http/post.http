@@ -1,12 +1,10 @@
-POST http://localhost:8080/recipe
+POST http://localhost:8080/member
 Content-Type: application/json
 
 {
-  "recipeName": "Eba",
-  "recipeImg": "Look",
-  "recipeItems": "water",
-  "recipePrep": "hot water"
-
+  "name": "Eba",
+  "password": "Lo",
+  "passwordRepeat": "Lo"
 }
 
 ###
