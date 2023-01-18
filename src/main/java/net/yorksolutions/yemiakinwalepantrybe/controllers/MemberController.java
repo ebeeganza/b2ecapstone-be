@@ -30,18 +30,32 @@ public class MemberController {
         }
     }
 
-    @GetMapping(params = {"name","password"})
-    public Member login(
+    @GetMapping
+    public Member getByNameAndPassword(
             @RequestParam String name,
             @RequestParam String password) {
-        try {
-            return memberService.login(name, password);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+
+        final var user= memberService.getByNameAndPassword(name, password);
+
+        if (user == null)
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+
+//        return new ResponseEntity<>(AppUser user, HttpStatus.OK);
+        return user;
     }
 
-    @GetMapping
+//    @GetMapping(params = {"name","password"})
+//    public Member login(
+//            @RequestParam String name,
+//            @RequestParam String password) {
+//        try {
+//            return memberService.login(name, password);
+//        } catch (Exception e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
+//    }
+
+    @GetMapping("/member")
     public Iterable<Member> getAllMembers() {
         try {
             return memberService.getAllMembers();

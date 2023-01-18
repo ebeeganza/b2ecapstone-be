@@ -1,6 +1,6 @@
 
 
-GET http://localhost:8080/recipe
+GET http://localhost:8080/member/p&p
 Accept: application/json
 
 

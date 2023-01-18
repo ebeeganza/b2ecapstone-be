@@ -30,6 +30,9 @@ public class MemberService {
     }
 
     public void register(Member member) throws Exception {
+        if (member.name == null) {
+            throw new Exception();
+        }
         if (!member.password.equals(member.passwordRepeat)) {
             throw new Exception();
         }
@@ -37,7 +40,13 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public Member login(String name, String password) {
+//    public Member getByNameAndPassword(String name, String password) {
+//        return MemberRepository
+//                .findMemberByNameAndPassword(name, password)
+//                .orElse();
+//    }
+
+    public Member getByNameAndPassword(String name, String password) {
         return memberRepository.findMemberByNameAndPassword(name, password).orElse(null);
     }
 
