@@ -34,11 +34,15 @@ public class MemberController {
     public Member login(
             @RequestParam String name,
             @RequestParam String password) {
-        try {
-            return memberService.login(name, password);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+//        try {
+//            return memberService.login(name, password);
+//        } catch (Exception e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
+
+        final var member = memberService.login(name, password);
+        if (member == null) { throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);}
+        return member;
     }
 
     @GetMapping

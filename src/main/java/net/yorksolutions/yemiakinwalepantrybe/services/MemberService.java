@@ -6,7 +6,9 @@ import net.yorksolutions.yemiakinwalepantrybe.models.Member;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.ItemRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.MemberRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.RecipeRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -41,7 +43,9 @@ public class MemberService {
     }
 
     public Member login(String name, String password) {
-        return memberRepository.findMemberByNameAndPassword(name, password).orElse(null);
+        return memberRepository
+                .findMemberByNameAndPassword(name, password)
+                .orElse(null);
     }
 
     public Iterable<Member> getAllMembers() {

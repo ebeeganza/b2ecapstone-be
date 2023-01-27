@@ -8,11 +8,16 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     public String recipeName;
     public String recipeImg;
-    public String recipeItems;
+
+    @ElementCollection
+    public List<RecipeItems> recipeItems;
+
     public String recipePrep;
+
+
 
 
 

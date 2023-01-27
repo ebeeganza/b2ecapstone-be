@@ -19,10 +19,13 @@ public class RecipeController {
     public RecipeController(RecipeService recipeService ) { this.recipeService = recipeService; }
 
     @PostMapping
-    public void newRecipe(@RequestBody Recipe recipe) {
+    public Recipe newRecipe(@RequestBody Recipe recipe) {
+        System.out.println(recipe.recipePrep);
         try {
-            recipeService.newRecipe(recipe);
+            System.out.println(recipe.recipeName);
+          return recipeService.newRecipe(recipe);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }

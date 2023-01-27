@@ -17,6 +17,4 @@ public class Member {
     @OneToMany
     public List <Recipe> Recipes;
 
-    @OneToMany
-    public List <Item> items;
 }

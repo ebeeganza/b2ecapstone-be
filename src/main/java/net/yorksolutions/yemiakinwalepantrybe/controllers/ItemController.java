@@ -21,9 +21,9 @@ public class ItemController {
     }
 
     @GetMapping
-    public Iterable<Item> getAllItems (Item item) {
+    public Iterable<Item> getAllItems() {
         try {
-            return itemService.getAllItems(item);
+            return itemService.getAllItems();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

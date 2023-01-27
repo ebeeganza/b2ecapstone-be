@@ -27,11 +27,14 @@ public class ItemService {
         this.recipeRepository = recipeRepository;
     }
 
-    public Iterable<Item> getAllItems(Item item) {
+    public Iterable<Item> getAllItems() {
         return itemRepository.findAll();
     }
 
     public Item stockItem(Item item) throws Exception {
+        if (item.itemName.isEmpty())
+            throw new Exception();
+
         if (itemRepository.findItemByItemName(item.itemName).isPresent())
             throw new Exception();
 

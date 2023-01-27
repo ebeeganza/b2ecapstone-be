@@ -6,6 +6,7 @@ import net.yorksolutions.yemiakinwalepantrybe.repositories.ItemRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.MemberRepository;
 import net.yorksolutions.yemiakinwalepantrybe.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class RecipeService {
         if (recipeRepository.findByRecipeName(recipe.recipeName).isPresent())
             throw new Exception();
 
-        return recipeRepository.save(recipe);
+       return recipeRepository.save(recipe);
     }
 
 
@@ -54,7 +55,7 @@ public class RecipeService {
         final var modifiedRecipe = recipeRepository.findByRecipeName(recipe.recipeName).orElseThrow();
         modifiedRecipe.recipeName = recipe.recipeName;
         modifiedRecipe.recipeImg = recipe.recipeImg;
-        modifiedRecipe.recipeItems = recipe.recipeItems;
+//        modifiedRecipe.recipeItems = recipe.recipeItems;
         modifiedRecipe.recipePrep = recipe.recipePrep;
 
         return recipeRepository.save(modifiedRecipe);
